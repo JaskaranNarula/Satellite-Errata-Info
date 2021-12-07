@@ -6,6 +6,7 @@ Purpose ...: Add the # of content hosts affected by the errata
 License ...: GPL3
 """
 
+import csv
 import requests
 import json
 from requests.auth import HTTPBasicAuth
@@ -33,13 +34,44 @@ def main():
     URL = "https://" + SATILLITE_FQDN + "/katello/api/errata"
     response = requests.get(URL, Params, auth=HTTPBasicAuth(USER, PASSWORD), verify=False)
     data = json.loads(response.content)
-    csv_file = open("/tmp/results.csv", "w")
-    csv_file.write("id,errata_id,erratum_type,title,hosts_applicable_count,issued,updated" + "\n")
-    for i in data['results']:
-        erratum_list = ",".join([str(i['id']), i['errata_id'], i['title'], i['type'], str(i['hosts_applicable_count']), i['issued'], i['updated']])
-        csv_file.write(erratum_list + "\n")
-    csv_file.close()
 
+    stage_list = []
+    final_list = []
+
+    stage_list.append("id")
+    stage_list.append("errata_id")
+    stage_list.append("erratum_type")
+    stage_list.append("title")
+    stage_list.append("hosts_applicable_count")
+    stage_list.append("hosts_installable_count")
+    stage_list.append("issued")
+    stage_list.append("updated")
+    stage_list.append("reboot_suggested")
+
+    final_list.append(stage_list)
+    stage_list = []
+
+    for element in data['results']:
+        stage_list.append(element['id'])
+        stage_list.append(element['errata_id'])
+        stage_list.append(element['type'])
+        stage_list.append(element['title'])
+        stage_list.append(element['hosts_applicable_count'])
+        stage_list.append(element['hosts_available_count'])
+        stage_list.append(element['issued'])
+        stage_list.append(element['updated'])
+        stage_list.append(element['reboot_suggested'])
+
+        final_list.append(stage_list)
+        stage_list = []
+
+
+    with open("/tmp/results.csv", "w") as csv_file:
+        writer = csv.writer(csv_file)
+        for lines in final_list:
+            writer.writerow(lines)
+
+    print("Please, check the file '/tmp/results.csv'")
 
 if __name__ == "__main__":
     main()
