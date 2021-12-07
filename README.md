@@ -28,6 +28,7 @@ Params = {
 
 #### Usage
 ~~~
+# wget https://raw.githubusercontent.com/JaskaranNarula/Satellite-Errata-Info/main/errata_info_with_hosts.py
 # python3 errata_info_with_hosts.py
 ~~~
 
@@ -35,10 +36,16 @@ Params = {
 ~~~
 ```
 # cat /tmp/results.csv
-id,errata_id,erratum_type,title,count,issued,updated
-4906,RHSA-2021:4904,security,Critical: nss security update,1,2021-12-01,2021-12-01
-4915,RHBA-2021:4789,bugfix,kbd bug fix and enhancement update,2,2021-11-23,2021-11-23
-4913,RHBA-2021:4794,bugfix,gettext bug fix and enhancement update,2,2021-11-23,2021-11-23
+id,errata_id,erratum_type,title,hosts_applicable_count,hosts_installable_count,issued,updated,reboot_suggested
+4906,RHSA-2021:4904,security,Critical: nss security update,1,1,2021-12-01,2021-12-01,False
+4915,RHBA-2021:4789,bugfix,kbd bug fix and enhancement update,2,2,2021-11-23,2021-11-23,False
+4913,RHBA-2021:4794,bugfix,gettext bug fix and enhancement update,2,2,2021-11-23,2021-11-23,False
+4912,RHSA-2021:4788,security,Moderate: krb5 security update,2,2,2021-11-23,2021-11-23,False
+4910,RHBA-2021:4786,bugfix,subscription-manager bug fix and enhancement update,2,2,2021-11-23,2021-11-23,False
+4907,RHBA-2021:4790,bugfix,bash bug fix and enhancement update,2,2,2021-11-23,2021-11-23,False
+4905,RHBA-2021:4784,bugfix,bind bug fix and enhancement update,2,2,2021-11-23,2021-11-23,False
+4903,RHBA-2021:4797,bugfix,qemu-kvm bug fix and enhancement update,1,1,2021-11-23,2021-11-23,False
+4902,RHSA-2021:4782,security,Moderate: openssh security update,2,2,2021-11-23,2021-11-23,False
 ...
 ```
 ~~~
@@ -47,5 +54,5 @@ id,errata_id,erratum_type,title,count,issued,updated
 # Authors 
 ~~~
 Developer.: Jaskaran Singh Narula 
-Mentor    : Waldirio
+Mentor    : Waldirio M Pinheiro
 ~~~ 
